@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Smile Maker حجز موعد عيادة أسنان</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Cairo", sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #ffffff, #f3f6fb);
+      color: #333;
+    }
+    header {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #1f3c88;
+    }
+    header p {
+      font-size: 16px;
+      color: #555;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #1f3c88;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #1f3c88;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #162e66;
+    }
+    .success {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="Untitled-1.png" alt="">
+    <h1>احجز موعدك الآن</h1>
+    <p>املأ البيانات وسنتواصل معك في أسرع وقت</p>
+  </header>
+
+  <div class="container">
+    <form id="bookingForm">
+
+      <label>رقم الهاتف</label>
+      <input type="tel" id="phone" maxlength="11" pattern="[0-9]{11}" placeholder="01xxxxxxxxx" required />
+      
+
+      <label>السن</label>
+      <input type="number" id="age" min="8" placeholder="مثال: 25" required />
+
+      <label>عرفتنا منين؟</label>
+      <select id="source" required>
+        <option value="">اختر</option>
+        <option>فيسبوك</option>
+        <option>تيك توك</option>
+        <option>إنستجرام</option>
+        <option>صديق</option>
+      </select>
+
+      <button type="submit">إرسال الطلب</button>
+    </form>
+
+    <div class="success" id="successMsg">
+      ✅ تم إرسال بياناتك بنجاح، سنقوم بالتواصل معك قريبًا
+    </div>
+  </div>
+
+  <footer>
+    © 2026 عيادة الأسنان – جميع الحقوق محفوظة
+  </footer>
+
+  <script>
+    const form = document.getElementById('bookingForm');
+    const successMsg = document.getElementById('successMsg');
+
+    const whatsappNumber = "201202128715"; // رقم الواتساب بدون +
+    const googleScriptURL = "https://script.google.com/macros/s/AKfycbzNG8Vg2vWzmmLreNkzftyw4a4d6wK13z5Xq6W8ugbimLn7H-Apzk6wyfO15ebxN5v4cg/exec";
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const phone = document.getElementById('phone').value;
+      const age = document.getElementById('age').value;
+      const source = document.getElementById('source').value;
+
+      const data = { phone, age, source };
+
+      // إرسال إلى Google Sheet
+      await fetch(googleScriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      });
+
+    
+
+
+form.reset();
+successMsg.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
